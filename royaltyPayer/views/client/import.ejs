@@ -1,0 +1,25 @@
+<link rel="stylesheet" media="screen" href="/dist/handsontable.full.css">
+<link rel="stylesheet" media="screen" href="/styles/importstyle.css">
+<div class="container" style="overflow:hidden;min-height:300px">
+<div id="topInstructions" class="text-center">
+	<div class="row text-center">
+		<h1 >Import Clients</h1>
+		<!-- http://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3/ -->
+		<span class="btn btn-primary btn-file">
+    		Upload CSV <input type="file" id="CSVupload">
+		</span>	
+	</div>
+<div class="row text-center">
+	<a href='' title='You do not have to use a template, but if you do then all of the fields will already be mapped.'>Download a template</a>
+</div>
+</div>
+<div class="row handsontable">
+<div id="dataDiv" class="handsontable"></div>
+</div>
+<div class="row text-center" id="progressDiv"></div>
+</div>
+
+<script src="/single/jquery.csv.min.js"></script>
+<script src="/dist/handsontable.full.js"></script>
+<script src="/single/importclients.js"></script>
+<script src="/single/validators.js"></script>

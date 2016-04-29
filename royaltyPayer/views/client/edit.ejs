@@ -1,0 +1,745 @@
+<script type="text/javascript" src="/single/addClients.js"></script>
+<script type="text/javascript" src="/single/editClients.js"></script>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+  <% if(client[0].pka){ %>
+    <h1><%= client[0].pka %></h1>
+  <% } else if(client[0].firstname){ %>
+    <h1><%= client[0].firstname+" "+client[0].lastname %></h1>
+  <% } else if(client[0].entityname){ %>
+    <h1> <%= client[0].entityname %> </h1>
+  <% } %>
+    </div>
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-primary btn-lg btn-block disabled" style="margin-top:20px" id="updateClient">Update</button>
+    </div>
+  </div>
+ <div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#client" aria-controls="client" role="tab" data-toggle="tab">Client Info</a></li>
+    <li role="presentation"><a href="#tax" aria-controls="tax" role="tab" data-toggle="tab">Tax Info</a></li>
+    <li role="presentation"><a href="#payment" aria-controls="payment" role="tab" data-toggle="tab">Payment Info</a></li>
+    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+<!--     <li role="presentation"><a href="#userAccount" aria-controls="userAccount" role="tab" data-toggle="tab">User Account</a></li> -->
+    <li role="presentation"><a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">Advanced</a></li>
+  </ul>
+<pre id="json-records" class="">
+<% var records= JSON.stringify(client) %>
+<%= records %>
+
+</pre>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="client">
+
+      <form action="/client/edit" enctype="multipart/form-data" method="post">
+        <div class="row">
+          <div class="col-md-6"><!--left main column-->
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputName1">First Name</label>
+                <input type="text" class="form-control clientDetails" id="firstName1" name="firstname" placeholder="First name" 
+                <%if (client[0].firstname) {%>
+                value="<%= client[0].firstname %>"
+                <% } %>
+                >
+              </div>
+              <div class="col-md-6">
+                <label for="inputName1">Last Name</label>
+                <input type="text" class="form-control clientDetails" id="lastName1" name="lastname" placeholder="Last name" 
+                <%if (client[0].lastname) {%>
+                value="<%= client[0].lastname %>"
+                <% } %>
+                >
+              </div>
+            </div><!-- close Name row -->
+            <div class="row">
+              <div class="col-md-12">
+                <label for="inputEntity">Operates as an Entity?</label>
+                <input type="text" class="form-control clientDetails" id="entityName" name="entityname" placeholder="Entity Name"
+                <%if (client[0].entityname) {%>
+                value="<%= client[0].entityname %>"
+                <% } %>
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" id="pkaDiv">
+                <label for="inputName1">Performs as</label>
+                <input type="text" class="form-control clientDetails" id="pkaName1" name="pka" placeholder="Enter name"
+                <%if (client[0].pka) {%> 
+                value="<%= client[0].pka %>"
+                <% } %>
+                ><button type="button" id="morePka"><span class="glyphicon glyphicon-plus"></span></button><button type="button" id="lessPka"><span class="glyphicon glyphicon-minus"></span></button>
+              </div>
+            </div><!-- close pka row -->
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputEmail1">Client Email</label>
+                <input type="email" class="form-control clientDetails" id="inputEmail1" name="email" placeholder="Enter email" 
+                <%if (client[0].email) {%>
+                value="<%= client[0].email %>"
+                <% } %>
+                >
+              </div>
+              <div class="col-md-6">
+                <label for="inputPhone1">Phone Number</label>
+                <input type="tel" class="form-control clientDetails" id="inputPhone1" name="phone" placeholder="XXX XXX-XXXX" 
+                <%if (client[0].phone) {%>
+                  value="<%= '('+client[0].phone.substr(0,3)+') '+client[0].phone.substr(3,3)+'-'+client[0].phone.substr(6,4) %>"
+                <% } %>
+                >
+              </div>
+            </div><!-- close row for email and phone -->
+
+<!--   <legend>PRO Details</legend>
+  <div class="row">
+    <div class="col-sm-3">
+    <div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios1" value="ascap">
+    ASCAP
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios2" value="bmi">
+    BMI
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios3" value="sesac">
+    SESAC
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios4" value="none">
+    N/A
+  </label>
+</div>
+</div>
+    <div class="col-sm-3">
+      <label for="inputCAE1">CAE/IPI #</label>
+      <input type="text" class="form-control" id="artistCAE" name="cae" placeholder="CAE/IPI">
+    </div>
+    <div class="col-sm-3">
+      <label for="inputName1">Publisher Name</label>
+      <input type="text" class="form-control" id="publisherName1" name="publisher" placeholder="Publisher name">
+    </div>
+    <div class="col-sm-3">
+      <label for="inputName1">Publisher CAE/IPI</label>
+      <input type="text" class="form-control" id="publisherCAE" name="cae2" placeholder="CAE/IPI">
+    </div>
+
+  </div> 
+    <div class="checkbox col-sm-offset-6 col-sm-3">
+    <label>
+      <input type="checkbox"> Controlled?
+    </label>
+  </div><br><!-- Close row for PRO details --> 
+
+  <!-- Form Name -->
+  <!-- Text input-->
+  <div class="row">
+   <div class="col-md-12">
+    <input type="hidden" id="addressID" 
+    <%if (client[0].address) {%>
+    value="<%= client[0].address.id %>"
+    <% } %> >
+    <label for="line1original">Address</label>
+    <input type="text" placeholder="Address Line 1" class="form-control addressDetails" id="line1original" name="line1" 
+    <%if (client[0].address) {%>
+    value="<%= client[0].address.line1 %>"
+    <% } %>
+    >
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control addressDetails" id="line2original" name="line2"
+    <%if (client[0].address) {%>
+    value ="<%= client[0].address.line2 %>"
+    <% } %>
+    >
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control addressDetails" id="cityoriginal" name="city" 
+    <%if (client[0].address) {%>
+    value ="<%= client[0].address.city %>"
+    <% } %>
+    >
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <select class="form-control addressDetails" id="stateoriginal" name="state">
+  <option value=""></option>
+  <option value="FC">Foreign Country</option>
+  <option value="AL" <%= client[0].state == "AL" ? "selected" : "" %>>Alabama</option>
+  <option value="AK" <%= client[0].state == "AK" ? "selected" : "" %>>Alaska</option>
+  <option value="AZ" <%= client[0].state == "AZ" ? "selected" : "" %>>Arizona</option>
+  <option value="AR" <%= client[0].state == "AR" ? "selected" : "" %>>Arkansas</option>
+  <option value="CA" <%= client[0].state == "CA" ? "selected" : "" %>>California</option>
+  <option value="CO" <%= client[0].state == "CO" ? "selected" : "" %>>Colorado</option>
+  <option value="CT" <%= client[0].state == "CT" ? "selected" : "" %>>Connecticut</option>
+  <option value="DE" <%= client[0].state == "DE" ? "selected" : "" %>>Delaware</option>
+  <option value="DC" <%= client[0].state == "DC" ? "selected" : "" %>>District Of Columbia</option>
+  <option value="FL" <%= client[0].state == "FL" ? "selected" : "" %>>Florida</option>
+  <option value="GA" <%= client[0].state == "GA" ? "selected" : "" %>>Georgia</option>
+  <option value="HI" <%= client[0].state == "HI" ? "selected" : "" %>>Hawaii</option>
+  <option value="ID" <%= client[0].state == "ID" ? "selected" : "" %>>Idaho</option>
+  <option value="IL" <%= client[0].state == "IL" ? "selected" : "" %>>Illinois</option>
+  <option value="IN" <%= client[0].state == "IN" ? "selected" : "" %>>Indiana</option>
+  <option value="IA" <%= client[0].state == "IA" ? "selected" : "" %>>Iowa</option>
+  <option value="KS" <%= client[0].state == "KS" ? "selected" : "" %>>Kansas</option>
+  <option value="KY" <%= client[0].state == "KY" ? "selected" : "" %>>Kentucky</option>
+  <option value="LA" <%= client[0].state == "LA" ? "selected" : "" %>>Louisiana</option>
+  <option value="ME" <%= client[0].state == "ME" ? "selected" : "" %>>Maine</option>
+  <option value="MD" <%= client[0].state == "MD" ? "selected" : "" %>>Maryland</option>
+  <option value="MA" <%= client[0].state == "MA" ? "selected" : "" %>>Massachusetts</option>
+  <option value="MI" <%= client[0].state == "MI" ? "selected" : "" %>>Michigan</option>
+  <option value="MN" <%= client[0].state == "MN" ? "selected" : "" %>>Minnesota</option>
+  <option value="MS" <%= client[0].state == "MS" ? "selected" : "" %>>Mississippi</option>
+  <option value="MO" <%= client[0].state == "MO" ? "selected" : "" %>>Missouri</option>
+  <option value="MT" <%= client[0].state == "MT" ? "selected" : "" %>>Montana</option>
+  <option value="NE" <%= client[0].state == "NE" ? "selected" : "" %>>Nebraska</option>
+  <option value="NV" <%= client[0].state == "NV" ? "selected" : "" %>>Nevada</option>
+  <option value="NH" <%= client[0].state == "NH" ? "selected" : "" %>>New Hampshire</option>
+  <option value="NJ" <%= client[0].state == "NJ" ? "selected" : "" %>>New Jersey</option>
+  <option value="NM" <%= client[0].state == "NM" ? "selected" : "" %>>New Mexico</option>
+  <option value="NY" <%= client[0].state == "NY" ? "selected" : "" %>>New York</option>
+  <option value="NC" <%= client[0].state == "NC" ? "selected" : "" %>>North Carolina</option>
+  <option value="ND" <%= client[0].state == "ND" ? "selected" : "" %>>North Dakota</option>
+  <option value="OH" <%= client[0].state == "OH" ? "selected" : "" %>>Ohio</option>
+  <option value="OK" <%= client[0].state == "OK" ? "selected" : "" %>>Oklahoma</option>
+  <option value="OR" <%= client[0].state == "OR" ? "selected" : "" %>>Oregon</option>
+  <option value="PA" <%= client[0].state == "PA" ? "selected" : "" %>>Pennsylvania</option>
+  <option value="RI" <%= client[0].state == "RI" ? "selected" : "" %>>Rhode Island</option>
+  <option value="SC" <%= client[0].state == "SC" ? "selected" : "" %>>South Carolina</option>
+  <option value="SD" <%= client[0].state == "SD" ? "selected" : "" %>>South Dakota</option>
+  <option value="TN" <%= client[0].state == "TN" ? "selected" : "" %>>Tennessee</option>
+  <option value="TX" <%= client[0].state == "TX" ? "selected" : "" %>>Texas</option>
+  <option value="UT" <%= client[0].state == "UT" ? "selected" : "" %>>Utah</option>
+  <option value="VT" <%= client[0].state == "VT" ? "selected" : "" %>>Vermont</option>
+  <option value="VA" <%= client[0].state == "VA" ? "selected" : "" %>>Virginia</option>
+  <option value="WA" <%= client[0].state == "WA" ? "selected" : "" %>>Washington</option>
+  <option value="WV" <%= client[0].state == "WV" ? "selected" : "" %>>West Virginia</option>
+  <option value="WI" <%= client[0].state == "WI" ? "selected" : "" %>>Wisconsin</option>
+  <option value="WY" <%= client[0].state == "WY" ? "selected" : "" %>>Wyoming</option>
+</select> 
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control addressDetails" id="ziporiginal" name="zip" 
+    <%if (client[0].address) {%>
+    value ="<%= client[0].address.zip %>"
+    <% } %>
+    >
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control addressDetails" id="countryoriginal" name="country">
+</div>
+</div>
+</div><!-- closing left main column -->
+<div class="col-md-6"><!-- right main column -->
+  <div class="row">
+    <div class="col-md-6">
+      <label for="companySelect">Company</label>
+      <select class="form-control clientDetails" id="companySelect" name="company">
+        <option ></option>
+        <option <%= client[0].company == "1630" ? "selected" : "" %>>1630</option>
+        <option <%= client[0].company == "ArtistShare" ? "selected" : "" %>>ArtistShare</option>
+        <option <%= client[0].company == "Crowded Air" ? "selected" : "" %>>Crowded Air</option>
+        <option <%= client[0].company == "Fanatic" ? "selected" : "" %>>Fanatic</option>
+        <option <%= client[0].company == "Gallops" ? "selected" : "" %>>Gallops</option>
+        <option <%= client[0].company == "Goodnight Records" ? "selected" : "" %>>Goodnight Records</option>
+        <option <%= client[0].company == "Light In The Attic" ? "selected" : "" %>>Light in the Attic</option>
+        <option <%= client[0].company == "A Side Music" ? "selected" : "" %>>A Side Music</option>
+        <option <%= client[0].company == "Second Floor Music" ? "selected" : "" %>>Second Floor Music</option>
+        <option <%= client[0].company == "Shlomo Diego" ? "selected" : "" %>>Shlomo Diego</option>
+        <option <%= client[0].company == "Superior Music" ? "selected" : "" %>>Superior Music</option>
+        <option <%= client[0].company == "TRIBO Music" ? "selected" : "" %>>TRIBO Music</option>
+        <option <%= client[0].company == "United For Opportunity" ? "selected" : "" %>>United for Opportunity</option>
+        <option <%= client[0].company == "other" ? "selected" : "" %>>other</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="repSelect">Client Rep</label>
+      <select class="form-control clientDetails" id="repSelect" name="clientrep" value=<%= client[0].clientrep %>>
+        <option></option>
+        <option <%= client[0].clientrep == "Adam" ? "selected" : "" %>>Adam</option>
+        <option <%= client[0].clientrep == "Alex" ? "selected" : "" %>>Alex</option>
+        <option <%= client[0].clientrep == "Dan" ? "selected" : "" %>>Dan</option>
+        <option <%= client[0].clientrep == "Erin" ? "selected" : "" %>>Erin</option>
+        <option <%= client[0].clientrep == "Mara" ? "selected" : "" %>>Mara</option>
+        <option <%= client[0].clientrep == "Melissa" ? "selected" : "" %>>Melissa</option>
+        <option <%= client[0].clientrep == "Jenny" ? "selected" : "" %>>Jenny</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+        <label for="inputStart1">Start Date</label>
+        <input type="date" class="form-control clientDetails" id="startDate" name="startDate" placeholder="MM/DD/YYY" value=
+        <%= client[0].startdate %>>
+      </div>
+      <div class="col-md-6">
+        <label for="inputEnd1">End Date</label>
+        <input type="date" class="form-control clientDetails" id="endDate" name="endDate" placeholder="MM/DD/YYYY" value=
+        <%= client[0].enddate %>>
+      </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-12">
+        <input type="checkbox" class="clientDetails" name="controlled" value="1"> Controlled?
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-md-12">
+      <label class="checkbox-inline">
+        <input type="checkbox" class="clientDetails" id="syncApproval1" name="syncapproval" value="1">Sync Approval Rights?
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" class="clientDetails" id="syncApproval2" name="managerok" value="1">Manager OK?
+      </label>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-md-12">
+      <label class="radio-inline clientDetails">
+        <input type="radio" id="catalog1" name="fullcatalog" value="1" checked="checked">Full Catalog
+      </label>
+      <label class="radio-inline">
+        <input type="radio" id="catalog2" name="fullcatalog" value="0">Partial Catalog
+      </label>
+    </div>
+  </div> <!-- Close the catalog row --><br>
+  <div class="row">
+    <div class="col-md-12">
+    <label class="radio-inline clientDetails">
+      <input type="radio" id="digital1" name="digitalstatements" value="1" checked="checked">Digital statements
+    </label>
+    <label class="radio-inline">
+      <input type="radio" id="digital2" name="digitalstatements" value="0">Paper statements
+    </label>
+  </div>
+  </div><br>
+  <div class="row" id="CCDiv">
+    <div class="col-md-3">
+      <h3>CC?</h3>
+    </div>
+      <div class="col-sm-3">
+        <label for="inputName2">First Name</label>
+        <input type="text" class="form-control clientDetails" id="CCfirstName1" name="CCfirstname" placeholder="First name">
+      </div>
+      <div class="col-sm-3">
+        <label for="inputName2">Last Name</label>
+        <input type="text" class="form-control clientDetails" id="CClastName1" name="CClastname" placeholder="Last name">
+      </div>
+      <div class="col-sm-3">
+        <label for="inputName1">Email Address</label>
+        <input type="text" class="form-control clientDetails" id="CCemail1" name="CCemail" placeholder="CarbonCopy@example.com">
+      </div>
+      <button type="button" id="moreCC"><span class="glyphicon glyphicon-plus"></span></button>
+      <button type="button" id="lessCC"><span class="glyphicon glyphicon-trash"></span></button>
+  </div></br>
+    <div class="row">
+      <div class="checkbox col-md-3">
+        <label>
+          <input type="checkbox"> Part of a Band?
+        </label>
+      </div>
+      <div class="col-md-9" id="bandDiv">
+        <input type="text" class="form-control clientDetails" id="bandName1" name="bandName" placeholder="Band name"><button type="button" id="moreBand"><span class="glyphicon glyphicon-plus"></span></button><button type="button" id="lessBand"><span class="glyphicon glyphicon-minus"></span></button>
+      </div>
+
+    </div> <!-- Close row for band info -->
+
+  </div> <!-- close right main column -->
+</div><br>
+
+</form>
+</div> <!--close tabpanel for artist -->
+
+
+<div role="tabpanel" class="tab-pane" id="tax"><br>
+  <label class="radio-inline taxDetails">
+    <input type="radio" id="usa" name="entity" value="usa" checked>Domestic Person or Entity
+  </label>
+  <label class="radio-inline taxDetails">
+    <input type="radio" id="exusap" name="entity" value="exusap">Foreign Person
+  </label>
+  <label class="radio-inline taxDetails">
+    <input type="radio" id="exusae" name="entity" value="exusac">Foreign Entity
+  </label><br>
+  <div id="w9">
+    <legend>W9 Details</legend>
+    <div class="row">
+      <div class="col-md-6">
+  <div class="row">
+    <div class="col-md-12">
+    <input type="hidden" id="taxInfoID" 
+    <%if (client[0].taxinfo) {%>
+    value="<%= client[0].taxinfo.id %>"
+    <% } %> >
+      <label for="legalName">Legal Name</label>
+        <input type="text" placeholder="Legal Name" class="form-control taxDetails" id="legalName" name="legalname"
+                <%if (client[0].taxinfo) {%>
+                <%if (client[0].taxinfo.legalname){%>
+                value="<%= client[0].taxinfo.legalname %>"
+                <% } %>
+                <% } %>
+                >
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-12">
+      <label for="businessName">Business Name</label>
+        <input type="text" placeholder="Business Name" class="form-control taxDetails" id="businessName" name="businessname"
+                <%if (client[0].taxinfo) {%>
+                <%if (client[0].taxinfo.businessname){%>
+                value="<%= client[0].taxinfo.businessname %>"
+                <% } %>
+                <% } %>
+                >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      <label for="taxID">Tax ID</label>
+        <input type="text" placeholder="XXX-XX-XXXX" class="form-control taxDetails" id="taxID" name="taxid"
+                <%if (client[0].taxinfo) {%>
+                <%if (client[0].taxinfo.taxid){%>
+                value="<%= client[0].taxinfo.taxid %>"
+                <% } %>
+                <% } %>>
+      </div>
+    </div><br>
+    <!-- Form Name -->
+    <!-- Text input-->
+  <div class="row">
+   <div class="col-md-12">
+    <label for="line1tax">Tax Address</label>
+    <div class="checkbox col-sm-12">
+      <label>
+        <input type="checkbox" id="addressChecker"> Same as mailing address?
+      </label>
+    </div>
+    <input type="text" placeholder="Address Line 1" class="form-control" id="line1tax" name="address1">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control" id="line2tax" name="address2">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control" id="citytax" name="city">
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <input type="text" placeholder="State" class="form-control" id="statetax" name="state">
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control" id="ziptax" name="zip">
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control" id="countrytax">
+</div>
+</div>
+       
+</div><!-- Closing the left main column -->
+<div class="col-md-6"> 
+
+    <div class="form-group">
+      <label for="w9Form">Upload Form W9</label>
+      <input type="file" id="w9Form">
+      <p class="help-block">It will be stored securely.</p><a href="http://www.irs.gov/pub/irs-pdf/fw9.pdf" target="_blank">Get blank W9 here</a>
+    </div>
+</div> <!-- Closing the right main column -->
+</div> <!-- Closing the W9 row -->
+</div> <!-- Closing the W9 div -->
+<div id="w8ben" class="hidden">
+  <legend>W-8Ben Details</legend>
+  <div class="form-group">
+    <label for="w8benForm">Upload Form W-8Ben</label>
+    <input type="file" id="w8benForm">
+    <p class="help-block">It will be stored securely.</p>
+  <a href="http://www.irs.gov/pub/irs-pdf/fw8ben.pdf" target="_blank">Get blank W-8Ben here</a>
+  </div>
+</div><!-- Closing the w8ben div -->
+<div id="w8benE" class="hidden">
+  <legend>W-8Ben-E Details</legend>
+  <div class="form-group">
+    <label for="w8beneForm">Upload Form W-8Ben-E</label>
+    <input type="file" id="w8beneForm">
+    <p class="help-block">It will be stored securely.</p>
+  <a href="http://www.irs.gov/pub/irs-pdf/fw8bene.pdf" target="_blank">Get blank W-8Ben-E here</a>
+  </div>
+</div><!-- Closing the w8benE div -->
+
+
+</div> <!--Close the tax tab div -->
+
+<div role="tabpanel" class="tab-pane" id="payment">
+  <div class="checkbox col-md-12 has-error">
+    <label>
+      <input type="checkbox" id="hold"> Hold payment?
+    </label>
+    <textarea class="form-control" rows="2"></textarea>
+  </div>
+  <div class="row">
+    <input type="hidden" id="paymentInfoID" 
+    <%if (client[0].paymentinfo) {%>
+    value="<%= client[0].paymentinfo.id %>"
+    <% } %> >
+    <div class="col-md-6">
+  <label class="radio-inline">
+    <input type="radio" id="deposit1" name="directDeposits" value="1" checked="checked">Direct Deposit
+  </label>
+  <label class="radio-inline">
+    <input type="radio" id="deposit2" name="directDeposits" value="0">Paper Checks
+  </label>
+  <label class="radio-inline">
+    <input type="radio" id="deposit3" name="directDeposits" value="2">International Wire
+  </label>
+  <div id="directDepositDiv" class="row">
+    <div class="col-md-12">
+      <label for="ddPayeeName">Payee Name</label>
+      <input type="text" class="form-control paymentDetails" id="payeeName" name="payeeName" placeholder="Payee Name"
+                <%if (client[0].paymentinfo) {%>
+                <%if (client[0].paymentinfo.payeeName){%>
+                value="<%= client[0].paymentinfo.payeeName %>"
+                <% } %>
+                <% } %>
+                >
+    </div>
+    <div class="col-md-6">
+      <label for="routingNumber">Routing Number</label>
+      <input type="text" class="form-control paymentDetails" id="routingNum" name="routing" placeholder="Routing Number"
+                <%if (client[0].paymentinfo) {%>
+                <%if (client[0].paymentinfo.routing){%>
+                value="<%= client[0].paymentinfo.routing %>"
+                <% } %>
+                <% } %>>
+    </div>
+    <div class="col-md-6">
+      <label for="accountNumber">Account Number</label>
+      <input type="text" class="form-control paymentDetails" id="accountNum" name="account" placeholder="Account Number"
+                <%if (client[0].paymentinfo) {%>
+                <%if (client[0].paymentinfo.account){%>
+                value="<%= client[0].paymentinfo.account %>"
+                <% } %>
+                <% } %>>
+    </div>
+    <div class="col-md-12">
+      <label for="bankName">Bank Name</label>
+      <input type="text" class="form-control paymentDetails" id="bankName" name="bankName" placeholder="Bank Name"
+                <%if (client[0].paymentinfo) {%>
+                <%if (client[0].paymentinfo.bankName){%>
+                value="<%= client[0].paymentinfo.bankName %>"
+                <% } %>
+                <% } %>>
+    </div>
+    <div class="col-md-12">
+    <label class="radio-inline paymentDetails">
+      <input type="radio" id="checking" name="typeOfAccount" value="1">Checking
+    </label>
+    <label class="radio-inline paymentDetails">
+      <input type="radio" id="savings" name="typeOfAccount" value="0">Savings
+    </label>
+    <div class="form-group">
+      <input type="file" id="attachmentUpload1">
+      <p class="help-block">Upload the Direct Deposit agreement.</p>
+    </div>
+  </div>
+  </div> <!-- close directDepositDiv -->
+  <div id="checkDetailsDiv" class="hidden">
+    <div class="row">
+      <div class="col-md-12">
+      <label for="checkPayeeName">Payee Name</label>
+      <input type="text" class="form-control paymentDetails" id="checkPayeeName" placeholder="Payee Name">
+    </div></div>
+  </div> <!--Close the checkDetailsDiv-->
+  <div id="INTLDetailsDiv" class="hidden">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="intlPayeeName">Payee Name</label>
+          <input type="text" placeholder="Payee Name" class="form-control paymentDetails" id="intlPayeeName">
+      </div>
+    </div>
+  <div class="row">
+   <div class="col-md-12">
+    <label for="line1payee">Payee Address</label>
+      <div class="checkbox col-sm-12">
+        <label>
+          <input type="checkbox" id="addressChecker2"> Same as mailing address?
+        </label>
+      </div>
+    <input type="text" placeholder="Address Line 1" class="form-control paymentDetails" id="line1payee" name="address1">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control paymentDetails" id="line2payee" name="address2">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control paymentDetails" id="citypayee" name="city">
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <input type="text" placeholder="State" class="form-control paymentDetails" id="statepayee" name="state">
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control paymentDetails" id="zippayee" name="zip">
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control paymentDetails" id="countrypayee">
+</div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <label for="iban">International Bank Account Number (IBAN)</label>
+        <input type="text" placeholder="IBAN #" class="form-control paymentDetails" id="iban">
+    </div>
+  </div> <!-- close row -->
+  <div class="row">
+    <div class="col-md-12">
+      <label for="bankName">Bank Name</label>
+        <input type="text" placeholder="Bank Name" class="form-control paymentDetails" id="bankName">
+    </div></div>
+
+  <div class="row">
+   <div class="col-md-12">
+    <label for="line1bank">Bank Address</label>
+    <input type="text" placeholder="Address Line 1" class="form-control paymentDetails" id="line1bank" name="address1">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control paymentDetails" id="line2bank" name="address2">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control paymentDetails" id="citybank" name="city">
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <input type="text" placeholder="State" class="form-control paymentDetails" id="statebank" name="state">
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control paymentDetails" id="zipbank" name="zip">
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control paymentDetails" id="countrybank">
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <label for="swiftCode">SWIFT code/BIC</label>
+      <input type="text" placeholder="SWIFT" class="form-control paymentDetails" id="swiftCode">
+</div>
+</div> <!-- Close row -->
+</div> <!-- Close the INTLDetailsDiv -->
+</div>
+<div class="col-md-6">
+<legend>Funky Payment Situations</legend>
+<!-- <div class="checkbox col-sm-12">
+  <label>
+    <input type="checkbox" id="heirsChecker"> Heirs
+  </label>
+</div> -->
+<div class="checkbox col-sm-12" data-toggle="tooltip" data-placement="right" title="Finders get paid a percentage of our fee">
+  <label>
+    <input type="checkbox" id="findersChecker"> Finder
+  </label>
+</div>
+<div class="checkbox col-sm-12" data-toggle="tooltip" data-placement="right" title="Overrides get paid a percentage of the client's total royalties">
+  <label>
+    <input type="checkbox" id="overridesChecker"> Override
+  </label>
+</div>
+<div class="checkbox col-sm-12" data-toggle="tooltip" data-placement="right" title="These get paid to the state.">
+  <label>
+    <input type="checkbox" id="lienChecker"> Tax Lien
+  </label>
+</div>
+</div>
+</div>
+</div> <!-- Close payment info div -->
+
+<div role="tabpanel" class="tab-pane" id="notes">
+  <div class="col-sm-6">
+  <label for="textarea">Miscellaneous Notes</label>
+    <textarea class="form-control clientDetails" rows="10" name="notes"></textarea>
+  </div>
+</div><!-- Close notes tab div -->
+
+
+<div role="tabpanel" class="tab-pane" id="userAccount">
+  <legend>User Account</legend>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm-3">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="username">
+      </div>
+      <div class="col-sm-3">
+        <label for="userEmail">Email Address</label>
+        <input type="text" class="form-control" id="userEmail" name="username" placeholder="email address">
+      </div>
+    </div>
+    <div class="row">
+      <label class="checkbox-inline">
+        <input type="checkbox" id="registerEmail1" name="registerEmail" value="1">Send Registration Email?
+      </label>
+      <button type="submit" class="btn btn-default">Create User</button>
+    </div>
+  </div>
+  <legend>Client Profile</legend>
+  This is where I put the Artist Profile that we recently added to our other website.
+</div><!-- Close user account tab div -->
+<div role="tabpanel" class="tab-pane" id="advanced">   
+  <div class="col-sm-3">
+    <label for="">Music Maestro ID</label>
+    <input type="text" class="form-control clientDetails" id="musicMaestroID" name="mmid" placeholder="12345" value="<%= client[0].mmid %>">
+  </div>
+  <div class="col-sm-3">
+    <label for="">QuickBooks ID</label>
+    <input type="text" class="form-control clientDetails" id="quickbooksID" name="qbid" placeholder="123" value="<%= client[0].qbid %>">
+  </div>
+  <div class="col-sm-3">
+    <label for="">Royalty Viewer ID</label>
+    <input type="text" class="form-control clientDetails" id="royaltyViewerID" name="royaltyViewerID" placeholder="1234" value="<%= client[0].id %>">
+  </div>
+  <div class="col-sm-3">
+    <label for="">MusicBrainz ID</label>
+    <input type="text" class="form-control clientDetails" id="musicBrainzID" name="musicBrainzID" placeholder="9341a67c-4f0c-43c2-9ec4-c222d2cb97f3">
+  </div>
+  <div class="col-sm-3">
+    <label for="">Echonest ID</label>
+    <input type="text" class="form-control clientDetails" id="echonestID" name="echonestID" placeholder="1234567890">
+  </div>
+  <div class="col-sm-3">
+    <label for="">Songkick ID</label>
+    <input type="text" class="form-control clientDetails" id="songkickID" name="songkickID" placeholder="154192">
+  </div>
+</div>
+</div>
+</div>
+<div id="changesBox"></div>

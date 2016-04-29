@@ -1,0 +1,622 @@
+<script type="text/javascript" src="/single/addClients.js"></script>
+<div class="container">
+ <div role="tabpanel">
+
+  <!-- Nav tabs -->
+ <!--  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#client" aria-controls="client" role="tab" data-toggle="tab">Client Info</a></li>
+    <li role="presentation"><a href="#tax" aria-controls="tax" role="tab" data-toggle="tab">Tax Info</a></li>
+    <li role="presentation"><a href="#payment" aria-controls="payment" role="tab" data-toggle="tab">Payment Info</a></li>
+    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+    <li role="presentation"><a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">Advanced</a></li>
+  </ul> -->
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="client">
+      <h1>New Client</h1>
+      <form action="/client/create" enctype="multipart/form-data" method="post">
+        <div class="row">
+          <div class="col-md-6"><!--left main column-->
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputName1">First Name</label>
+                <input type="text" class="form-control" id="firstName1" name="firstname" placeholder="First name">
+              </div>
+              <div class="col-md-6">
+                <label for="inputName1">Last Name</label>
+                <input type="text" class="form-control" id="lastName1" name="lastname" placeholder="Last name">
+              </div>
+            </div><!-- close Name row -->
+            <div class="row">
+              <div class="col-md-12">
+                <label for="inputEntity">Operates as an Entity?</label>
+                <input type="text" class="form-control" id="entityName" name="entityname" placeholder="Entity Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" id="pkaDiv">
+                <label for="inputName1">Performs as</label>
+                <input type="text" class="form-control" id="pkaName1" name="pka" placeholder="Enter name"><button type="button" id="morePka"><span class="glyphicon glyphicon-plus"></span></button><button type="button" id="lessPka"><span class="glyphicon glyphicon-minus"></span></button>
+              </div>
+            </div><!-- close pka row -->
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputEmail1">Client Email</label>
+                <input type="email" class="form-control" id="inputEmail1" name="email" placeholder="Enter email">
+              </div>
+              <div class="col-md-6">
+                <label for="inputPhone1">Phone Number</label>
+                <input type="tel" class="form-control" id="inputPhone1" name="phone" placeholder="XXX XXX-XXXX">
+              </div>
+            </div><!-- close row for email and phone -->
+
+<!--   <legend>PRO Details</legend>
+  <div class="row">
+    <div class="col-sm-3">
+    <div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios1" value="ascap">
+    ASCAP
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios2" value="bmi">
+    BMI
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios3" value="sesac">
+    SESAC
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="proRadios" id="optionsRadios4" value="none">
+    N/A
+  </label>
+</div>
+</div>
+    <div class="col-sm-3">
+      <label for="inputCAE1">CAE/IPI #</label>
+      <input type="text" class="form-control" id="artistCAE" name="cae" placeholder="CAE/IPI">
+    </div>
+    <div class="col-sm-3">
+      <label for="inputName1">Publisher Name</label>
+      <input type="text" class="form-control" id="publisherName1" name="publisher" placeholder="Publisher name">
+    </div>
+    <div class="col-sm-3">
+      <label for="inputName1">Publisher CAE/IPI</label>
+      <input type="text" class="form-control" id="publisherCAE" name="cae2" placeholder="CAE/IPI">
+    </div>
+
+  </div> 
+    <div class="checkbox col-sm-offset-6 col-sm-3">
+    <label>
+      <input type="checkbox"> Controlled?
+    </label>
+  </div><br><!-- Close row for PRO details --> 
+
+  <!-- Form Name -->
+  <!-- Text input-->
+  <div class="row">
+   <div class="col-md-12">
+    <label for="line1original">Address</label>
+    <input type="text" placeholder="Address Line 1" class="form-control" id="line1original" name="address1">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control" id="line2original" name="address2">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control" id="cityoriginal" name="city">
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <select class="form-control" id="stateoriginal" name="state">
+  <option value=""></option>
+  <option value="FC">Foreign Country</option>
+  <option value="AL">Alabama</option>
+  <option value="AK">Alaska</option>
+  <option value="AZ">Arizona</option>
+  <option value="AR">Arkansas</option>
+  <option value="CA">California</option>
+  <option value="CO">Colorado</option>
+  <option value="CT">Connecticut</option>
+  <option value="DE">Delaware</option>
+  <option value="DC">District Of Columbia</option>
+  <option value="FL">Florida</option>
+  <option value="GA">Georgia</option>
+  <option value="HI">Hawaii</option>
+  <option value="ID">Idaho</option>
+  <option value="IL">Illinois</option>
+  <option value="IN">Indiana</option>
+  <option value="IA">Iowa</option>
+  <option value="KS">Kansas</option>
+  <option value="KY">Kentucky</option>
+  <option value="LA">Louisiana</option>
+  <option value="ME">Maine</option>
+  <option value="MD">Maryland</option>
+  <option value="MA">Massachusetts</option>
+  <option value="MI">Michigan</option>
+  <option value="MN">Minnesota</option>
+  <option value="MS">Mississippi</option>
+  <option value="MO">Missouri</option>
+  <option value="MT">Montana</option>
+  <option value="NE">Nebraska</option>
+  <option value="NV">Nevada</option>
+  <option value="NH">New Hampshire</option>
+  <option value="NJ">New Jersey</option>
+  <option value="NM">New Mexico</option>
+  <option value="NY">New York</option>
+  <option value="NC">North Carolina</option>
+  <option value="ND">North Dakota</option>
+  <option value="OH">Ohio</option>
+  <option value="OK">Oklahoma</option>
+  <option value="OR">Oregon</option>
+  <option value="PA">Pennsylvania</option>
+  <option value="RI">Rhode Island</option>
+  <option value="SC">South Carolina</option>
+  <option value="SD">South Dakota</option>
+  <option value="TN">Tennessee</option>
+  <option value="TX">Texas</option>
+  <option value="UT">Utah</option>
+  <option value="VT">Vermont</option>
+  <option value="VA">Virginia</option>
+  <option value="WA">Washington</option>
+  <option value="WV">West Virginia</option>
+  <option value="WI">Wisconsin</option>
+  <option value="WY">Wyoming</option>
+</select> 
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control" id="ziporiginal" name="zip">
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control" id="countryoriginal" name="country">
+</div>
+</div>
+</div><!-- closing left main column -->
+<div class="col-md-6"><!-- right main column -->
+  <div class="row">
+    <div class="col-md-6">
+      <label for="companySelect">Company</label>
+      <select class="form-control" id="companySelect" name="company">
+        <option>1630</option>
+        <option>ArtistShare</option>
+        <option>Crowded Air</option>
+        <option>Fanatic</option>
+        <option>Gallops</option>
+        <option>Goodnight Records</option>
+        <option>Light in the Attic</option>
+        <option selected>A Side Music</option>
+        <option>Second Floor Music</option>
+        <option>Shlomo Diego</option>
+        <option>Superior Music</option>
+        <option>TRIBO Music</option>
+        <option>United for Opportunity</option>
+        <option>other</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="repSelect">Client Rep</label>
+      <select class="form-control" id="repSelect" name="clientrep">
+        <option></option>
+        <option>Adam</option>
+        <option>Alex</option>
+        <option>Dan</option>
+        <option>Erin</option>
+        <option>Mara</option>
+        <option>Melissa</option>
+        <option>Jenny</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+        <label for="inputStart1">Start Date</label>
+        <input type="date" class="form-control" id="startDate" name="startDate" placeholder="MM/DD/YYY">
+      </div>
+      <div class="col-md-6">
+        <label for="inputEnd1">End Date</label>
+        <input type="date" class="form-control" id="endDate" name="endDate" placeholder="MM/DD/YYYY">
+      </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-6">
+        <input type="checkbox" name="controlled" value="1"> Controlled?
+    </div>
+    <div class="col-md-6">
+      <label class="checkbox-inline">
+        <input type="checkbox" id="syncApproval1" name="syncapproval" value="1">Sync Approval Rights?
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" id="syncApproval2" name="managerok" value="1">Manager OK?
+      </label>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-md-6">
+      <label class="radio-inline">
+        <input type="radio" id="catalog1" name="fullcatalog" value="1" checked="checked">Full Catalog
+      </label>
+      <label class="radio-inline">
+        <input type="radio" id="catalog2" name="fullcatalog" value="0">Partial Catalog
+      </label>
+    </div>
+    <div class="col-md-6">
+    <label class="radio-inline">
+      <input type="radio" id="digital1" name="digitalstatements" value="1" checked="checked">Digital statements
+    </label>
+    <label class="radio-inline">
+      <input type="radio" id="digital2" name="digitalstatements" value="0">Paper statements
+    </label>
+  </div>
+  </div><br>
+  <div id="CCDiv">
+  <div class="row">
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="CCName1" name="CCname" placeholder="Name">
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="CCemail1" name="CCemail" placeholder="CarbonCopy@example.com">
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="CCName2" name="CCname" placeholder="Name">
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="CCemail2" name="CCemail" placeholder="CarbonCopy@example.com">
+      </div>
+      </div>
+      <button type="button" id="moreCC"><span class="glyphicon glyphicon-plus"></span></button>
+      <button type="button" id="lessCC"><span class="glyphicon glyphicon-trash"></span></button>
+  </div></br>
+    <div class="row">
+      <div class="checkbox col-md-3">
+        <label>
+          <input type="checkbox"> Part of a Band?
+        </label>
+      </div>
+      <div class="col-md-9" id="bandDiv">
+        <input type="text" class="form-control" id="bandName1" name="bandName" placeholder="Band name"><button type="button" id="moreBand"><span class="glyphicon glyphicon-plus"></span></button><button type="button" id="lessBand"><span class="glyphicon glyphicon-minus"></span></button>
+      </div>
+
+    </div> <!-- Close row for band info -->
+
+  </div> <!-- close right main column -->
+</div><br>
+  <div class="row">
+    <button type="submit" class="btn btn-default" id="submitClient">Submit</button>
+  </div>
+
+</form>
+</div> <!--close tabpanel for artist -->
+
+
+<div role="tabpanel" class="tab-pane" id="tax"><br>
+  <label class="radio-inline">
+    <input type="radio" id="usa" name="entity" value="usa" checked>Domestic Person or Entity
+  </label>
+  <label class="radio-inline">
+    <input type="radio" id="exusap" name="entity" value="exusap">Foreign Person
+  </label>
+  <label class="radio-inline">
+    <input type="radio" id="exusae" name="entity" value="exusac">Foreign Entity
+  </label><br>
+  <div id="w9">
+    <legend>W9 Details</legend>
+    <div class="row">
+      <div class="col-md-6">
+  <div class="row">
+    <div class="col-md-12">
+      <label for="legalName">Legal Name</label>
+        <input type="text" placeholder="Legal Name" class="form-control" id="legalName">
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-12">
+      <label for="businessName">Business Name</label>
+        <input type="text" placeholder="Business Name" class="form-control" id="businessName">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      <label for="taxID">Tax ID</label>
+        <input type="text" placeholder="XXX-XX-XXXX" class="form-control" id="taxID">
+      </div>
+    </div><br>
+    <!-- Form Name -->
+    <!-- Text input-->
+  <div class="row">
+   <div class="col-md-12">
+    <label for="line1tax">Tax Address</label>
+    <div class="checkbox col-sm-12">
+      <label>
+        <input type="checkbox" id="addressChecker"> Same as mailing address?
+      </label>
+    </div>
+    <input type="text" placeholder="Address Line 1" class="form-control" id="line1tax" name="address1">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control" id="line2tax" name="address2">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control" id="citytax" name="city">
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <input type="text" placeholder="State" class="form-control" id="statetax" name="state">
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control" id="ziptax" name="zip">
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control" id="countrytax">
+</div>
+</div>
+       
+</div><!-- Closing the left main column -->
+<div class="col-md-6"> 
+
+    <div class="form-group">
+      <label for="w9Form">Upload Form W9</label>
+      <input type="file" id="w9Form">
+      <p class="help-block">It will be stored securely.</p><a href="http://www.irs.gov/pub/irs-pdf/fw9.pdf" target="_blank">Get blank W9 here</a>
+    </div>
+</div> <!-- Closing the right main column -->
+</div> <!-- Closing the W9 row -->
+</div> <!-- Closing the W9 div -->
+<div id="w8ben" class="hidden">
+  <legend>W-8Ben Details</legend>
+  <div class="form-group">
+    <label for="w8benForm">Upload Form W-8Ben</label>
+    <input type="file" id="w8benForm">
+    <p class="help-block">It will be stored securely.</p>
+  <a href="http://www.irs.gov/pub/irs-pdf/fw8ben.pdf" target="_blank">Get blank W-8Ben here</a>
+  </div>
+</div><!-- Closing the w8ben div -->
+<div id="w8benE" class="hidden">
+  <legend>W-8Ben-E Details</legend>
+  <div class="form-group">
+    <label for="w8beneForm">Upload Form W-8Ben-E</label>
+    <input type="file" id="w8beneForm">
+    <p class="help-block">It will be stored securely.</p>
+  <a href="http://www.irs.gov/pub/irs-pdf/fw8bene.pdf" target="_blank">Get blank W-8Ben-E here</a>
+  </div>
+</div><!-- Closing the w8benE div -->
+
+
+</div> <!--Close the tax tab div -->
+
+<div role="tabpanel" class="tab-pane" id="payment">
+  <div class="checkbox col-md-12 has-error">
+    <label>
+      <input type="checkbox" id="hold"> Hold payment?
+    </label>
+    <textarea class="form-control" rows="2"></textarea>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+  <label class="radio-inline">
+    <input type="radio" id="deposit1" name="directDeposits" value="1" checked="checked">Direct Deposit
+  </label>
+  <label class="radio-inline">
+    <input type="radio" id="deposit2" name="directDeposits" value="0">Paper Checks
+  </label>
+  <label class="radio-inline">
+    <input type="radio" id="deposit3" name="directDeposits" value="2">International Wire
+  </label>
+  <div id="directDepositDiv" class="row">
+    <div class="col-md-12">
+      <label for="ddPayeeName">Payee Name</label>
+      <input type="text" class="form-control" id="payeeName" placeholder="Payee Name">
+    </div>
+    <div class="col-md-6">
+      <label for="routingNumber">Routing Number</label>
+      <input type="text" class="form-control" id="routingNum" placeholder="Routing Number">
+    </div>
+    <div class="col-md-6">
+      <label for="accountNumber">Account Number</label>
+      <input type="text" class="form-control" id="accountNum" placeholder="Account Number">
+    </div>
+    <div class="col-md-12">
+      <label for="bankName">Bank Name</label>
+      <input type="text" class="form-control" id="bankName" placeholder="Bank Name">
+    </div>
+    <div class="col-md-12">
+    <label class="radio-inline">
+      <input type="radio" id="checking" name="typeOfAccount" value="1">Checking
+    </label>
+    <label class="radio-inline">
+      <input type="radio" id="savings" name="typeOfAccount" value="0">Savings
+    </label>
+    <div class="form-group">
+      <input type="file" id="attachmentUpload1">
+      <p class="help-block">Upload the Direct Deposit agreement.</p>
+    </div>
+  </div>
+  </div> <!-- close directDepositDiv -->
+  <div id="checkDetailsDiv" class="hidden">
+    <div class="row">
+      <div class="col-md-12">
+      <label for="checkPayeeName">Payee Name</label>
+      <input type="text" class="form-control" id="checkPayeeName" placeholder="Payee Name">
+    </div></div>
+  </div> <!--Close the checkDetailsDiv-->
+  <div id="INTLDetailsDiv" class="hidden">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="intlPayeeName">Payee Name</label>
+          <input type="text" placeholder="Payee Name" class="form-control" id="intlPayeeName">
+      </div>
+    </div>
+  <div class="row">
+   <div class="col-md-12">
+    <label for="line1payee">Payee Address</label>
+      <div class="checkbox col-sm-12">
+        <label>
+          <input type="checkbox" id="addressChecker2"> Same as mailing address?
+        </label>
+      </div>
+    <input type="text" placeholder="Address Line 1" class="form-control" id="line1payee" name="address1">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control" id="line2payee" name="address2">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control" id="citypayee" name="city">
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <input type="text" placeholder="State" class="form-control" id="statepayee" name="state">
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control" id="zippayee" name="zip">
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control" id="countrypayee">
+</div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <label for="iban">International Bank Account Number (IBAN)</label>
+        <input type="text" placeholder="IBAN #" class="form-control" id="iban">
+    </div>
+  </div> <!-- close row -->
+  <div class="row">
+    <div class="col-md-12">
+      <label for="bankName">Bank Name</label>
+        <input type="text" placeholder="Bank Name" class="form-control" id="bankName">
+    </div></div>
+
+  <div class="row">
+   <div class="col-md-12">
+    <label for="line1bank">Bank Address</label>
+    <input type="text" placeholder="Address Line 1" class="form-control" id="line1bank" name="address1">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-12">
+    <input type="text" placeholder="Address Line 2" class="form-control" id="line2bank" name="address2">
+  </div>
+
+  <!-- Text input-->
+  <div class="col-md-6">
+   <input type="text" placeholder="City" class="form-control" id="citybank" name="city">
+ </div>
+ <!-- Text input-->
+ <div class="col-md-2">
+  <input type="text" placeholder="State" class="form-control" id="statebank" name="state">
+</div>
+<div class="col-md-4">
+  <input type="text" placeholder="Post Code" class="form-control" id="zipbank" name="zip">
+</div>
+<!-- Text input-->
+<div class="col-md-12">
+  <input type="text" placeholder="Country" class="form-control" id="countrybank">
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <label for="swiftCode">SWIFT code/BIC</label>
+      <input type="text" placeholder="SWIFT" class="form-control" id="swiftCode">
+</div>
+</div> <!-- Close row -->
+</div> <!-- Close the INTLDetailsDiv -->
+</div>
+<div class="col-md-6">
+<legend>Funky Payment Situations</legend>
+<!-- <div class="checkbox col-sm-12">
+  <label>
+    <input type="checkbox" id="heirsChecker"> Heirs
+  </label>
+</div> -->
+<div class="checkbox col-sm-12" data-toggle="tooltip" data-placement="right" title="Finders get paid a percentage of our fee">
+  <label>
+    <input type="checkbox" id="findersChecker"> Finder
+  </label>
+</div>
+<div class="checkbox col-sm-12" data-toggle="tooltip" data-placement="right" title="Overrides get paid a percentage of the client's total royalties">
+  <label>
+    <input type="checkbox" id="overridesChecker"> Override
+  </label>
+</div>
+</div>
+</div>
+</div> <!-- Close payment info div -->
+
+<div role="tabpanel" class="tab-pane" id="notes">
+  <div class="col-sm-6">
+  <label for="textarea">Miscellaneous Notes</label>
+    <textarea class="form-control" rows="10"></textarea>
+  </div>
+</div><!-- Close notes tab div -->
+
+
+<div role="tabpanel" class="tab-pane" id="userAccount">
+  <legend>User Account</legend>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm-3">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="username">
+      </div>
+      <div class="col-sm-3">
+        <label for="userEmail">Email Address</label>
+        <input type="text" class="form-control" id="userEmail" name="username" placeholder="email address">
+      </div>
+    </div>
+    <div class="row">
+      <label class="checkbox-inline">
+        <input type="checkbox" id="registerEmail1" name="registerEmail" value="1">Send Registration Email?
+      </label>
+      <button type="submit" class="btn btn-default">Create User</button>
+    </div>
+  </div>
+  <legend>Client Profile</legend>
+  This is where I put the Artist Profile that we recently added to our other website.
+</div><!-- Close user account tab div -->
+<div role="tabpanel" class="tab-pane" id="advanced">   
+  <div class="col-sm-3">
+    <label for="">Music Maestro ID</label>
+    <input type="text" class="form-control" id="musicMaestroID" name="musicMaestroID" placeholder="12345">
+  </div>
+  <div class="col-sm-3">
+    <label for="">QuickBooks ID</label>
+    <input type="text" class="form-control" id="quickbooksID" name="quickbooksID" placeholder="123">
+  </div>
+  <div class="col-sm-3">
+    <label for="">Royalty Viewer ID</label>
+    <input type="text" class="form-control" id="royaltyViewerID" name="royaltyViewerID" placeholder="1234">
+  </div>
+  <div class="col-sm-3">
+    <label for="">MusicBrainz ID</label>
+    <input type="text" class="form-control" id="musicBrainzID" name="musicBrainzID" placeholder="9341a67c-4f0c-43c2-9ec4-c222d2cb97f3">
+  </div>
+  <div class="col-sm-3">
+    <label for="">Echonest ID</label>
+    <input type="text" class="form-control" id="echonestID" name="echonestID" placeholder="1234567890">
+  </div>
+  <div class="col-sm-3">
+    <label for="">Songkick ID</label>
+    <input type="text" class="form-control" id="songkickID" name="songkickID" placeholder="154192">
+  </div>
+</div>
+</div>
+</div>

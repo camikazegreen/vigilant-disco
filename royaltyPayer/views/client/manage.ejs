@@ -1,0 +1,34 @@
+<link rel="stylesheet" media="screen" href="/dist/handsontable.full.css">
+<link rel="stylesheet" media="screen" href="/styles/importstyle.css">
+<pre id="json-records" class="hidden">
+<% var records= JSON.stringify(clients) %>
+<%= records %>
+</pre>
+<div class="container" style="overflow:hidden;min-height:600px">
+<div class="row">
+	<div class="col-md-6">
+	<input type="checkbox" id="selectAll">
+	<button type="button" class="btn btn-primary" id="updateSelected">Update Selected</button>
+	</div>
+	<div class="col-md-6 form-inline">
+		<!-- Select list to choose your view -->
+      <label for="viewSelect">Select View</label>
+      <select class="form-control" id="viewSelect">
+        <option></option>
+        <option value="contact">View Contact Info</option>
+        <option value="payment">Edit Payment Info</option>
+        <option value="tax">Edit Tax Info</option>
+      </select>
+
+	</div>
+</div>
+<div class="row handsontable">
+<div id="dataDiv" class="handsontable"></div>
+</div>
+<div class="row text-center" id="progressDiv"></div>
+</div>
+
+<script src="/single/jquery.csv.min.js"></script>
+<script src="/dist/handsontable.full.js"></script>
+<script src="/single/manageclients.js"></script>
+<script src="/single/validators.js"></script>
