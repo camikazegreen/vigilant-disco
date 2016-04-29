@@ -38,10 +38,10 @@ module.exports = {
   		type:'string'
   	},
   	startdate:{
-  		type:'date'
+  		type:'string'
   	},
   	enddate:{
-  		type:'date'
+  		type:'string'
   	},
   	controlled:{
   		type:'boolean'
